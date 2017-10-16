@@ -11,6 +11,7 @@ char getLetter(int i, int j, struct rolledDice **gameBoard)
 
 int abidesRules(int i, int j, char *word, struct rolledDice** gameBoard, int subLen, int **visited)
 {
+    
     int adjCell;
     char currentLetter = word[subLen];
     int ans = (subLen == (strlen(word)-1));
@@ -28,10 +29,12 @@ int abidesRules(int i, int j, char *word, struct rolledDice** gameBoard, int sub
     
     findLetter = word[subLen + 1];
     
+    //if the sub word is one letter smaller return
     if(subLen == (strlen(word)-1)){
         return 1;
     }
     
+    //verify again through recurision
     for(adjCell = 0; adjCell < 8; adjCell++){
         
         newX = i + allxVariable[adjCell];
@@ -94,6 +97,7 @@ int wordChecker(struct rolledDice **gameBoard, char *word)
             
             if(abidesRules(row, col, word, gameBoard, 0, visited)){
                 
+                //free and return true
                 free(visited[0]);
                 free(visited[1]);
                 free(visited[2]);
@@ -107,6 +111,7 @@ int wordChecker(struct rolledDice **gameBoard, char *word)
         
     }
     
+    //fre and return false
     free(visited[0]);
     free(visited[1]);
     free(visited[2]);
@@ -116,6 +121,7 @@ int wordChecker(struct rolledDice **gameBoard, char *word)
     
 }
 
+//Get letter at
 char testGetLetter(int i, int j, char **boggle)
 {
     
@@ -123,6 +129,7 @@ char testGetLetter(int i, int j, char **boggle)
     
 }
 
+//test version of abide rules
 int testAbidesRules(int i, int j, char *word, char **gameBoard, int subLen, int **visited)
 {
     int adjCell;
@@ -187,8 +194,10 @@ int testAbidesRules(int i, int j, char *word, char **gameBoard, int subLen, int 
     return 0;
 }
 
+//test version of word checker
 int testWordChecker(char **boggle, char *word)
 {
+    
     int row, letter, col, m, n;
     int **visited;
     visited = malloc(sizeof(int * ) * 4);
@@ -358,6 +367,7 @@ int hcAbidesRules(int i, int j, char *word, char boggle[][4], int subLen, int **
     return 0;
 }
 
+//test function to get letter
 char hcGetLetter(int i, int j, char boggle[][4])
 {
     

@@ -9,6 +9,7 @@ char getLetter(int i, int j, struct rolledDice **gameBoard)
     return gameBoard[i][j].character;
 }
 
+//This function looks a sournding correct letter
 int abidesRules(int i, int j, char *word, struct rolledDice** gameBoard, int subLen, int **visited)
 {
     
@@ -29,21 +30,26 @@ int abidesRules(int i, int j, char *word, struct rolledDice** gameBoard, int sub
     
     findLetter = word[subLen + 1];
     
-    //if the sub word is one letter smaller return
+    //if the word is complete then return out
     if(subLen == (strlen(word)-1)){
         return 1;
     }
     
-    //verify again through recurision
+    //verify by checking all letters surrounding the current one
     for(adjCell = 0; adjCell < 8; adjCell++){
         
         newX = i + allxVariable[adjCell];
         newY = j + allyVariable[adjCell];
         
+        //if a correct letter is found move on, if a letter cant move on then go back
         if((newX >= 0) && (newX < 4) && (newY >=0) && (newY < 4) && toupper(findLetter) == getLetter(newX, newY, gameBoard) && !visited[newX][newY]){
             
+            //mark variable as checked
             visited[newX][newY] = 1;
+            
             ++subLen;
+            
+            //Move onto next correct letter
             result = abidesRules(newX, newY, word, gameBoard, subLen, visited);
             
             if(result){
@@ -52,6 +58,7 @@ int abidesRules(int i, int j, char *word, struct rolledDice** gameBoard, int sub
                 
             }else{
                 
+                //if the word failed half way through then retry a new attempt
                 --subLen;
                 
             }
@@ -60,6 +67,7 @@ int abidesRules(int i, int j, char *word, struct rolledDice** gameBoard, int sub
         
     }
     
+    //if the letter cant be found at all return 0
     return 0;
 }
 
@@ -70,6 +78,7 @@ int wordChecker(struct rolledDice **gameBoard, char *word)
     int row, letter, col, m, n;
     int **visited;
     
+    //Stores the location of the found letters
     visited = malloc(sizeof(int * ) * 4);
     
     visited[0] = malloc(sizeof(int) * 4);
@@ -77,6 +86,7 @@ int wordChecker(struct rolledDice **gameBoard, char *word)
     visited[2] = malloc(sizeof(int) * 4);
     visited[3] = malloc(sizeof(int) * 4);
     
+    //set variables of 2d pointer array, mark the starting variables as already checked
     for(m = 0; m < 4; m++){
         for(n = 0; n < 4; n++){
             if(m == 0 && n == 0){
@@ -91,9 +101,10 @@ int wordChecker(struct rolledDice **gameBoard, char *word)
         }
     }
     
-    for (int row = 0; row < 4; row++) {
+    //go through each space on the board and see if it connects to the letter
+    for (row = 0; row < 4; row++) {
         
-        for (int col = 0; col < 4; col++) {
+        for (col = 0; col < 4; col++) {
             
             if(abidesRules(row, col, word, gameBoard, 0, visited)){
                 
@@ -153,6 +164,7 @@ int testAbidesRules(int i, int j, char *word, char **gameBoard, int subLen, int 
         return 1;
     }
     
+    //Look for word that starts with Q
     if(toupper(currentLetter) == 'Q' && toupper(word[subLen + 2]) == testGetLetter(i,j,gameBoard)){
         
         findLetter = word[subLen + 3];
@@ -223,9 +235,9 @@ int testWordChecker(char **boggle, char *word)
         }
     }
     
-    for (int row = 0; row < 4; row++) {
+    for (row = 0; row < 4; row++) {
         
-        for (int col = 0; col < 4; col++) {
+        for (col = 0; col < 4; col++) {
             
             if(testAbidesRules(row, col, word, boggle, 0, visited)){
                 
@@ -276,9 +288,9 @@ int hcWordChecker(char boggle[][4], char *word)
         }
     }
     
-    for (int row = 0; row < 4; row++) {
+    for (row = 0; row < 4; row++) {
         
-        for (int col = 0; col < 4; col++) {
+        for (col = 0; col < 4; col++) {
             
             if(hcAbidesRules(row, col, word, boggle, 0, visited)){
                 

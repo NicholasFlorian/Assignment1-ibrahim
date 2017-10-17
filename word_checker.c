@@ -122,7 +122,7 @@ int wordChecker(struct rolledDice **gameBoard, char *word)
         
     }
     
-    //fre and return false
+    //free and return false
     free(visited[0]);
     free(visited[1]);
     free(visited[2]);
@@ -132,10 +132,10 @@ int wordChecker(struct rolledDice **gameBoard, char *word)
     
 }
 
-//Get letter at
+//Get letter at coordinates on the boggle board
 char testGetLetter(int i, int j, char **boggle)
 {
-    
+
     return boggle[i][j];
     
 }
@@ -168,6 +168,7 @@ int testAbidesRules(int i, int j, char *word, char **gameBoard, int subLen, int 
     if(toupper(currentLetter) == 'Q' && toupper(word[subLen + 2]) == testGetLetter(i,j,gameBoard)){
         
         findLetter = word[subLen + 3];
+        //goes twice as deep into the word,
         subLen++;
         subLen++;
         currentLetter = word[subLen];

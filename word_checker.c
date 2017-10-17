@@ -7,6 +7,7 @@ char getLetter(int i, int j, struct rolledDice **gameBoard)
 {
     //Returns the letter in the gameboard
     return gameBoard[i][j].character;
+    
 }
 
 //This function looks a sournding correct letter
@@ -32,7 +33,9 @@ int abidesRules(int i, int j, char *word, struct rolledDice** gameBoard, int sub
     
     //if the word is complete then return out
     if(subLen == (strlen(word)-1)){
+        
         return 1;
+        
     }
     
     //verify by checking all letters surrounding the current one
@@ -143,6 +146,7 @@ char testGetLetter(int i, int j, char **boggle)
 //test version of abide rules
 int testAbidesRules(int i, int j, char *word, char **gameBoard, int subLen, int **visited)
 {
+    
     int adjCell;
     
     // use subLen as index to see what letter to find
@@ -318,6 +322,7 @@ int hcWordChecker(char boggle[][4], char *word)
 
 int hcAbidesRules(int i, int j, char *word, char boggle[][4], int subLen, int **visited)
 {
+    
     int adjCell;
     char currentLetter = word[subLen];
     int ans = (subLen == (strlen(word)-1));

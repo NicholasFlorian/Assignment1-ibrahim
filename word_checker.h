@@ -6,7 +6,7 @@
  *@pre      The gameBoard must be accurate and the word needs to be 4 letters long.
  *@return   1 or 0, 1 indicates the word was on the board, 0 indicates it wasnt.
  *@param    The gameboard
-  *@param   The word the user wants to verify
+ *@param   The word the user wants to verify
  **/
 int wordChecker(struct rolledDice **gameBoard, char *word);
 
@@ -27,7 +27,7 @@ int abidesRules(int i, int j, char *word, struct rolledDice** gameBoard, int sub
  *@return   A char value, representing a letter on the boggle board
  *@param    i is an x cooridinate, 
  *@param    j is the y coordinate,
- *@param    **char reps the boggle
+ *@param    **rolled reps the boggleBoard
  **/
 char getLetter(int i, int j, struct rolledDice **gameBoard);
 
